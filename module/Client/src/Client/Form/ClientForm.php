@@ -18,6 +18,16 @@ class ClientForm extends Form
                 'client_birthday' => 'Data de nascimento',
                 'user_password' => 'Senha',
                 'user_password_confirm' => 'Confirmar senha'
+            ),
+            'passwordValidator' => array(
+                'password' => array(
+                    'name' => 'user_password',
+                    'label' => 'Senha'
+                ),
+                'confirmation' => array(
+                    'name' => 'user_password_confirm',
+                    'label' => 'Confirmar senha'
+                )
             )
         )));
 

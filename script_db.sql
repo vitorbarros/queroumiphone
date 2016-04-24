@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `queroumiphone_sys_db`.`user` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
   `user_username` VARCHAR(200) NOT NULL,
   `user_password` VARCHAR(255) NOT NULL,
+  `user_salt` VARCHAR(255) NOT NULL,
   `user_created_at` DATETIME NOT NULL,
   `user_updated_at` DATETIME NOT NULL,
   PRIMARY KEY (`user_id`))

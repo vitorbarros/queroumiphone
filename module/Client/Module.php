@@ -1,6 +1,8 @@
 <?php
 namespace Client;
 
+use Client\Service\ClientService;
+
 class Module
 {
 
@@ -17,6 +19,17 @@ class Module
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
             ),
+        );
+    }
+
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'Client\Service\ClientService' => function ($sm) {
+                    return new ClientService($sm->get('Doctrine\ORM\EntityManager'));
+                }
+            )
         );
     }
 }

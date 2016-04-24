@@ -9,6 +9,7 @@ use Zend\Stdlib\Hydrator;
  *
  * @ORM\Table(name="client")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Client\Entity\Repository\ClientRepository")
  */
 class Client
@@ -147,7 +148,7 @@ class Client
      */
     public function setClientCpf($clientCpf)
     {
-        $this->clientCpf = $clientCpf;
+        $this->clientCpf = str_replace(".", "", str_replace("-", "", $clientCpf));
         return $this;
     }
 
@@ -165,7 +166,7 @@ class Client
      */
     public function setClientBirthday($clientBirthday)
     {
-        $this->clientBirthday = $clientBirthday;
+        $this->clientBirthday = new \DateTime($clientBirthday);
         return $this;
     }
 
@@ -186,7 +187,7 @@ class Client
     }
 
     /**
-     * @return Client
+     * @ORM\PrePersist
      */
     public function setClientUpdatedAt()
     {

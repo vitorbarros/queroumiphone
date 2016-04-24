@@ -2,6 +2,8 @@
 namespace Client\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Crypt\Key\Derivation\Pbkdf2;
+use Zend\Math\Rand;
 use Zend\Stdlib\Hydrator;
 
 /**
@@ -9,6 +11,7 @@ use Zend\Stdlib\Hydrator;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Client\Entity\Repository\UserRepository")
  */
 class User
@@ -37,6 +40,13 @@ class User
     private $userPassword;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="user_salt", type="string", length=255, nullable=false)
+     */
+    private $userSalt;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="user_created_at", type="datetime", nullable=false)
@@ -52,6 +62,9 @@ class User
 
     public function __construct(array  $options = array())
     {
+
+        $this->userSalt = base64_encode(Rand::getBytes(8, true));
+
         (new Hydrator\ClassMethods())->hydrate($options, $this);
         $this->userCreatedAt = new \DateTime("now");
         $this->userUpdatedAt = new \DateTime("now");
@@ -107,8 +120,25 @@ class User
      */
     public function setUserPassword($userPassword)
     {
-        $this->userPassword = $userPassword;
+        $this->userPassword = $this->encryptPassword($userPassword);
         return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setUserSalt()
+    {
+        $this->userSalt = base64_encode(Rand::getBytes(8, true));
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserSalt()
+    {
+        return $this->userSalt;
     }
 
     /**
@@ -128,12 +158,17 @@ class User
     }
 
     /**
-     * @return User
+     * @ORM\PrePersist
      */
     public function setUserUpdatedAt()
     {
         $this->userUpdatedAt = new \DateTime("now");
         return $this;
+    }
+
+    public function encryptPassword($password)
+    {
+        return base64_encode(Pbkdf2::calc('sha256', $password, $this->userSalt, 10000, 120));
     }
 
     /**

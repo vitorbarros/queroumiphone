@@ -6,8 +6,11 @@
                     <div class="form-create-client">
                         <!--form-->
                         <?php $form = $this->form; ?>
-                        <?php $form->setAttribute('onSubmit', 'event.preventDefault();storeClient()'); ?>
-                        <?php $form->setAttribute('id', 'storeClient'); ?>
+                        <?php $form->setAttributes(array(
+                                'id' => 'storeClient',
+                                'onsubmit' => 'event.preventDefault();storeClient()'
+                            ));
+                        ?>
                         <?php $form->prepare(); ?>
 
                         <?php echo $this->form()->openTag($form); ?>
@@ -21,10 +24,18 @@
                         <?php echo $this->formrow($form->get('client_birthday')); ?>
                         <?php echo $this->formrow($form->get('user_password')); ?>
                         <?php echo $this->formrow($form->get('user_password_confirm')); ?>
+
+                        <!--alert-->
+                        <div class="row alert-row">
+                            <div class="col-md-12" id="alert-client"></div>
+                        </div>
+                        <!--alert-->
+
                         <?php echo $this->formrow($form->get('submit')); ?>
 
                         <?php echo $this->form()->closeTag(); ?>
                         <!--form-->
+
                     </div>
                 </div>
             </div>
