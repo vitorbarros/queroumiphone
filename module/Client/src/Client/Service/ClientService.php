@@ -45,6 +45,7 @@ class ClientService extends AbstractService
 
             $this->entity = 'Client\Entity\User';
             $data['user_username'] = $data['client_email'];
+            $data['user_status'] = 0;
             $user = parent::store($data, false);
 
             $this->entity = 'Client\Entity\Client';
@@ -53,6 +54,8 @@ class ClientService extends AbstractService
 
             $this->em->flush();
             $this->em->getConnection()->commit();
+
+            //TODO implementar o envio do e-mail depois do cadastro
 
             return $client;
 

@@ -60,6 +60,20 @@ class User
      */
     private $userUpdatedAt;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="user_activation_key", type="string", nullable=false)
+     */
+    private $userActivationKey;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="user_status", type="integer", nullable=false)
+     */
+    private $userStatus;
+
     public function __construct(array  $options = array())
     {
 
@@ -68,6 +82,9 @@ class User
         (new Hydrator\ClassMethods())->hydrate($options, $this);
         $this->userCreatedAt = new \DateTime("now");
         $this->userUpdatedAt = new \DateTime("now");
+
+        $this->userActivationKey = md5($this->userUsername . $this->userSalt . $this->userUsername);
+        
     }
 
     /**
@@ -172,6 +189,41 @@ class User
     }
 
     /**
+     * @return string
+     */
+    public function getUserActivationKey()
+    {
+        return $this->userActivationKey;
+    }
+
+    /**
+     * @return User
+     */
+    public function setUserActivationKey()
+    {
+        $this->userActivationKey = md5($this->userUsername . $this->userSalt . $this->userUsername);
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserStatus()
+    {
+        return $this->userStatus;
+    }
+
+    /**
+     * @param string $userStatus
+     * @return User
+     */
+    public function setUserStatus($userStatus)
+    {
+        $this->userStatus = $userStatus;
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -180,7 +232,9 @@ class User
             'user_id' => $this->getUserId(),
             'user_username' => $this->getUserUsername(),
             'user_created_at' => $this->getUserCreatedAt(),
-            'user_updated_at' => $this->getUserUpdatedAt()
+            'user_updated_at' => $this->getUserUpdatedAt(),
+            'user_activation_key' => $this->getUserActivationKey(),
+            'user_status' => $this->getUserSalt()
         );
     }
 
