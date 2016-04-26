@@ -5,7 +5,8 @@ return array(
         'DoctrineModule',
         'DoctrineORMModule',
         'DoctrineDataFixtureModule',
-        'Client'
+        'Client',
+        'Login'
     ),
 
     'module_listener_options' => array(

@@ -1,5 +1,4 @@
-function storeClient()
-{
+function storeClient(){
     var formData = new FormData($("#storeClient")[0]);
 
     $.ajax({
@@ -17,6 +16,27 @@ function storeClient()
         }
     });
 }
+
+function authenticate() {
+
+    var formData = new FormData($("#login")[0]);
+
+    $.ajax({
+        type:"POST",
+        url:"/auth/verifyCredentials",
+        data:formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success:function(data){
+            window.location.href = data.redirect;
+        },
+        error:function(data){
+            alertRequests('error', data, 'alert-login', true);
+        }
+    });
+}
+
 function alertRequests(type, data, id, clear) {
     if (type == 'success') {
         $("#" + id).empty();

@@ -1,0 +1,22 @@
+<div class="container-form-loginUser">
+    <?php $form = $this->form; ?>
+    <?php $form->setAttribute('onSubmit', 'event.preventDefault();authenticate();'); ?>
+    <?php $form->setAttribute('stlye', "background-color:white;"); ?>
+    <?php $form->prepare(); ?>
+    <?php echo $this->form()->openTag($form); ?>
+
+        <?php echo $this->formhidden($form->get('csrf')); ?>
+        <?php echo $this->formrow($form->get('login')); ?>
+        <?php echo $this->formrow($form->get('password')); ?>
+
+            <!--alert-->
+            <div class="row alert-row">
+                <div class="col-md-12" id="alert-login"></div>
+            </div>
+            <!--alert-->
+
+        <?php  echo $this->formsubmit($form->get('submit')); ?>
+
+    <?php echo $this->form()->closeTag(); ?>
+</div>
+
