@@ -32,12 +32,6 @@ class ClientService extends AbstractService
             throw new \Exception("Já existe um cadastro com o e-mail '{$email->getClientEmail()}'");
         }
 
-        //verificando o CPF
-        $cpf = $this->em->getRepository('Client\Entity\Client')->findOneByClientCpf(str_replace(".", "", str_replace("-", "", $data['client_cpf'])));
-        if ($cpf) {
-            throw new \Exception("Já existe um cadastro com o cpf '{$data['client_cpf']}'");
-        }
-
         //inciando a transação
         $this->em->getConnection()->beginTransaction();
 

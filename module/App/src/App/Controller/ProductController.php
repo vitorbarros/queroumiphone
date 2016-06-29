@@ -1,74 +1,73 @@
 <?php
-namespace Client\Controller;
+namespace App\Controller;
 
-use Client\Form\ClientForm;
-use Client\Service\ClientService;
-use Client\Traits\FormAlert;
-use Client\Traits\FormFields;
+use App\Form\ProductForm;
+use App\Service\ProductService;
+use App\Traits\FormAlert;
+use App\Traits\FormFields;
 use Doctrine\ORM\EntityManager;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
-class ClientController extends AbstractActionController
+class ProductController extends AbstractActionController
 {
-
     /**
-     * Trait
+     * Traits
      */
     use FormAlert;
     use FormFields;
+
     /**
      * @var EntityManager
      */
     private $em;
     /**
-     * @var ClientService
+     * @var ProductService
      */
-    private $clientService;
-
+    private $service;
+    /**
+     * @var ProductForm
+     */
+    private $form;
 
     /**
-     * ClientController constructor.
+     * ProductController constructor.
      * @param EntityManager $em
-     * @param ClientService $clientService
+     * @param ProductService $service
+     * @param ProductForm $form
      */
     public function __construct(
         EntityManager $em,
-        ClientService $clientService
+        ProductService $service,
+        ProductForm $form
     )
     {
         $this->em = $em;
-        $this->clientService = $clientService;
+        $this->service = $service;
+        $this->form = $form;
     }
 
-    /**
-     * @return ViewModel
-     */
     public function createAction()
     {
-        $clientForm = new ClientForm();
-        return new ViewModel(array('form' => $clientForm));
+        return new ViewModel(array(
+            'form' => $this->form
+        ));
     }
 
-    /**
-     * @return JsonModel
-     */
     public function storeAction()
     {
         $request = $this->getRequest();
         $response = $this->getResponse();
 
-        $clientForm = new ClientForm();
-
         if ($request->isPost()) {
 
-            $data = $request->getPost()->toArray();
-            $clientForm->setData($data);
+            $data = array_merge_recursive($request->getPost()->toArray(), $request->getFiles()->toArray());
+            $this->form->setData($data);
 
-            if ($clientForm->isValid()) {
+            if ($this->form->isValid()) {
                 try {
-                    $this->clientService->store($data);
+                    $this->service->store($data);
                     return new JsonModel(array('messages' => 'Cadastro realizado com sucesso'));
                 } catch (\Exception $e) {
                     $response->setStatusCode(400);
@@ -77,8 +76,8 @@ class ClientController extends AbstractActionController
             }
             $response->setStatusCode(400);
             return new JsonModel(array(
-                'messages' => $this->formatAlert($clientForm->getMessages()),
-                'fields' => $this->fields($clientForm->getMessages())
+                'messages' => $this->formatAlert($this->form->getMessages()),
+                'fields' => $this->fields($this->form->getMessages())
             ));
         }
     }

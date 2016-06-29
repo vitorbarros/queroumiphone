@@ -11,6 +11,7 @@ $(document).ready(function () {
         yearRange: "1900:" + year
     });
 
+
 });
 function storeClient(){
     var formData = new FormData($("#storeClient")[0]);
@@ -27,6 +28,64 @@ function storeClient(){
         },
         error: function (data) {
             alertRequests('error', data, 'alert-client', false);
+        }
+    });
+}
+
+function updateCategory(){
+    var formData = new FormData($("#updateCategory")[0]);
+    $.ajax({
+        type: "POST",
+        url: "/category/update",
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            if(data.redirect){
+                window.location.href = data.redirect;
+            }
+        },
+        error: function (data) {
+            alertRequests('error', data, 'alert-category', false);
+        }
+    });
+}
+
+function storeCategory(){
+    var formData = new FormData($("#createCategory")[0]);
+
+    $.ajax({
+        type: "POST",
+        url: "/category/store",
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            alertRequests('success', data, 'alert-category', true);
+        },
+        error: function (data) {
+            alertRequests('error', data, 'alert-category', false);
+        }
+    });
+}
+
+function storeProduct(){
+    var formData = new FormData($("#createProduct")[0]);
+
+    $.ajax({
+        type: "POST",
+        url: "/product/store",
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            alertRequests('success', data, 'alert-product', true);
+        },
+        error: function (data) {
+            alertRequests('error', data, 'alert-product', false);
         }
     });
 }
@@ -69,5 +128,23 @@ function clearFields() {
     $("input[type='email']").val("");
     $("input[type='number']").val("");
     $("textarea").val("");
+}
 
+function getCategory(id, fild) {
+    if(id){
+        $.ajax({
+            type: "GET",
+            url: "/category/get/" + id,
+            cache: false,
+            success: function (data) {
+                var html = "<option value='' selected>Selecione a categoria</option>";
+                $.each(data.categories, function (i,v){
+                   html += "<option value=\'"+i+"\'>"+v+"</option>";
+                });
+                $("#" + fild).empty();
+                $("#" + fild).append(html);
+                $("#" + fild).removeAttr('disabled');
+            }
+        });
+    }
 }

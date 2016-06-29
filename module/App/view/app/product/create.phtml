@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form">
+            <?php $form = $this->form; ?>
+            <?php $form->setAttribute('onSubmit', 'event.preventDefault(); storeProduct()'); ?>
+            <?php $form->setAttribute('id', 'createProduct'); ?>
+            <?php $form->prepare(); ?>
+            <?php echo $this->form()->openTag($form); ?>
+            <?php echo $this->formhidden($form->get('csrf')); ?>
+            <?php echo $this->formrow($form->get('product_name')); ?>
+            <?php echo $this->formrow($form->get('product_description')); ?>
+            <?php echo $this->formrow($form->get('category_1')); ?>
+            <?php echo $this->formrow($form->get('category_2')->setAttribute('disabled', 'disabled')); ?>
+            <?php echo $this->formrow($form->get('category')->setAttribute('disabled', 'disabled')); ?>
+            <?php echo $this->formrow($form->get('product_photo_1')); ?>
+            <?php echo $this->formrow($form->get('product_photo_2')); ?>
+            <?php echo $this->formrow($form->get('product_photo_3')); ?>
+            <?php echo $this->formrow($form->get('product_photo_4')); ?>
+            <?php echo $this->formrow($form->get('product_photo_5')); ?>
+            <!--alert-->
+            <div class="row alert-row">
+                <div class="col-md-12" id="alert-product"></div>
+            </div>
+            <!--alert-->
+            <?php echo $this->formrow($form->get('submit')); ?>
+            <?php echo $this->formrow($form->get('submit_draft')); ?>
+            <!--alert-->
+            <div class="row alert-row">
+                <div class="col-md-12" id="alert-category"></div>
+            </div>
+            <!--alert-->
+            <?php echo $this->form()->closeTag(); ?>
+        </div>
+    </div>
+</div>

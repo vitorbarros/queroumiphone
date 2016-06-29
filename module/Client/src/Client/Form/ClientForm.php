@@ -14,7 +14,8 @@ class ClientForm extends Form
             'fieldsRequired' => array(
                 'client_name' => 'Nome completo',
                 'client_email' => 'E-mail',
-                'client_cpf' => 'Cpf',
+                'client_sexo' => 'Sexo',
+                'client_facebook' => 'Facebook',
                 'client_birthday' => 'Data de nascimento',
                 'user_password' => 'Senha',
                 'user_password_confirm' => 'Confirmar senha'
@@ -68,14 +69,29 @@ class ClientForm extends Form
 
         $this->add(array(
             'type' => 'text',
-            'name' => 'client_cpf',
+            'name' => 'client_facebook',
             'options' => array(
-                'label' => 'Cpf'
+                'label' => 'Facebook'
             ),
             'attributes' => array(
-                'id' => 'client_cpf',
+                'id' => 'client_facebook',
                 'class' => 'form-control',
-                'placeholder' => 'Entre com o cpf'
+                'placeholder' => 'Entre com o seu facebook'
+            )
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'client_sexo',
+            'options' => array(
+                'label' => 'Sexo',
+                'empty_option' => 'Selecione o sexo',
+                'value_options' => array('Masculino', 'Feminino'),
+                'disable_inarray_validator' => true
+            ),
+            'attributes' => array(
+                'id' => 'client_sexo',
+                'class' => 'form-control',
             )
         ));
 

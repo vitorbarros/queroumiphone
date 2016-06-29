@@ -7,9 +7,9 @@
                         <!--form-->
                         <?php $form = $this->form; ?>
                         <?php $form->setAttributes(array(
-                                'id' => 'storeClient',
-                                'onsubmit' => 'event.preventDefault();storeClient()'
-                            ));
+                            'id' => 'storeClient',
+                            'onsubmit' => 'event.preventDefault();storeClient()'
+                        ));
                         ?>
                         <?php $form->prepare(); ?>
 
@@ -20,7 +20,8 @@
 
                         <?php echo $this->formrow($form->get('client_name')); ?>
                         <?php echo $this->formrow($form->get('client_email')); ?>
-                        <?php echo $this->formrow($form->get('client_cpf')); ?>
+                        <?php echo $this->formrow($form->get('client_facebook')); ?>
+                        <?php echo $this->formrow($form->get('client_sexo')); ?>
                         <?php echo $this->formrow($form->get('client_birthday')); ?>
                         <?php echo $this->formrow($form->get('user_password')); ?>
                         <?php echo $this->formrow($form->get('user_password_confirm')); ?>

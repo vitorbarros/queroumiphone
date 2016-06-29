@@ -40,9 +40,16 @@ class Client
     /**
      * @var string
      *
-     * @ORM\Column(name="client_cpf", type="string", length=11, nullable=false)
+     * @ORM\Column(name="client_sexo", type="string", length=11, nullable=false)
      */
-    private $clientCpf;
+    private $clientSexo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="client_facebook", type="string", length=11, nullable=false)
+     */
+    private $clientFacebook;
 
     /**
      * @var \DateTime
@@ -137,18 +144,36 @@ class Client
     /**
      * @return string
      */
-    public function getClientCpf()
+    public function getClientSexo()
     {
-        return $this->clientCpf;
+        return $this->clientSexo;
     }
 
     /**
-     * @param string $clientCpf
+     * @param string $clientSexo
      * @return Client
      */
-    public function setClientCpf($clientCpf)
+    public function setClientSexo($clientSexo)
     {
-        $this->clientCpf = str_replace(".", "", str_replace("-", "", $clientCpf));
+        $this->clientSexo = $clientSexo;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClientFacebook()
+    {
+        return $this->clientFacebook;
+    }
+
+    /**
+     * @param string $clientFacebook
+     * @return Client
+     */
+    public function setClientFacebook($clientFacebook)
+    {
+        $this->clientFacebook = $clientFacebook;
         return $this;
     }
 
@@ -166,7 +191,7 @@ class Client
      */
     public function setClientBirthday($clientBirthday)
     {
-        $this->clientBirthday = new \DateTime($clientBirthday);
+        $this->clientBirthday = $clientBirthday;
         return $this;
     }
 
@@ -179,6 +204,16 @@ class Client
     }
 
     /**
+     * @param \DateTime $clientCreatedAt
+     * @return Client
+     */
+    public function setClientCreatedAt($clientCreatedAt)
+    {
+        $this->clientCreatedAt = $clientCreatedAt;
+        return $this;
+    }
+
+    /**
      * @return \DateTime
      */
     public function getClientUpdatedAt()
@@ -187,11 +222,12 @@ class Client
     }
 
     /**
-     * @ORM\PrePersist
+     * @param \DateTime $clientUpdatedAt
+     * @return Client
      */
-    public function setClientUpdatedAt()
+    public function setClientUpdatedAt($clientUpdatedAt)
     {
-        $this->clientUpdatedAt = new \DateTime("now");
+        $this->clientUpdatedAt = $clientUpdatedAt;
         return $this;
     }
 
@@ -212,7 +248,7 @@ class Client
         $this->user = $user;
         return $this;
     }
-
+    
     /**
      * @return array
      */

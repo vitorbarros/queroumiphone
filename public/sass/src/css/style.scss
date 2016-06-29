@@ -109,11 +109,13 @@
 
 $fontDefalut: ralewayregular;
 
+.container-form-loginUser,
 .form-create-client{
   form{
     label{
       font-family: $fontDefalut;
     }
+    select,
     input{
       border-radius: 0;
       border: none;

@@ -57,7 +57,7 @@ class LoginController extends AbstractActionController
                 if (!empty($route)) {
                     return new JsonModel(array('redirect' => $route['redirect_to']));
                 } else {
-                    return new JsonModel(array('redirect' => '/app/client/my-account'));
+                    return new JsonModel(array('redirect' => '/dashboard'));
                 }
 
             } else {

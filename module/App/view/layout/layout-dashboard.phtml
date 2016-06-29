@@ -1,0 +1,58 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <?php echo $this->headTitle('Quero um iphone')->setAutoEscape(false) ?>
+
+    <?php echo $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+
+    <!-- Le styles -->
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->prependStylesheet($this->basePath('css/style.css'))
+        ->prependStylesheet($this->basePath('css/jquery-ui.min.css'))
+        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+        ->prependStylesheet($this->basePath('css/bootstrap.min.css')) ?>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="<?php echo $this->url('default_route', array('controller' => 'product', 'action' => 'create')) ?>">Criar produto</a></li>
+                    <li><a href="#">Criar Anuncio</a></li>
+                    <li><a href="#">Ver anuncios</a></li>
+                </ul>
+                <h3>Admin</h3>
+                <ul>
+                    <li><a href="<?php echo $this->url('default_route', array('controller' => 'category', 'action' => 'create')) ?>">Criar categorias</a></li>
+                    <li><a href="<?php echo $this->url('default_route', array('controller' => 'category', 'action' => 'list')) ?>">Ver categorias</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                <?php echo $this->content; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<?php echo $this->inlineScript()
+    ->prependFile($this->basePath('js/main.min.js'))
+    ->prependFile($this->basePath('js/bootstrap.min.js'))
+    ->prependFile($this->basePath('js/jquery-ui.min.js'))
+    ->prependFile($this->basePath('js/jquery.mask.min.js'))
+    ->prependFile($this->basePath('js/jquery.min.js'))
+    ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+    ->prependFile($this->basePath('js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
+?>
+
+</body>
+</html>

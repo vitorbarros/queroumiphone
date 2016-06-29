@@ -18,12 +18,12 @@ class LoginForm extends Form {
             'name'  =>  'login',
             'options' => array(
                 'type' => 'text',
-                'label' => '',
+                'label' => 'Usuário',
             ),
             'attributes' => array(
                 'id' => 'login',
-                'placeholder' => 'ID',
-                'class' => 'input-login',
+                'placeholder' => 'Nome de usuário',
+                'class' => 'form-control',
             ),
         ));
 
@@ -31,12 +31,12 @@ class LoginForm extends Form {
         $this->add(array(
             'name' => 'password',
             'options' => array(
-                'label' => '',
+                'label' => 'Senha',
             ),
             'attributes' => array(
                 'id' => 'password',
-                'placeholder' => 'SENHA',
-                'class' => ' input-login',
+                'placeholder' => 'Senha',
+                'class' => 'form-control',
                 'type' => 'password',
             ),
         ));

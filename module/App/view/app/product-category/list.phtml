@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <?php if ($this->categories) : ?>
+            <div class="table">
+                <table class="table table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Slug</th>
+                        <th>Pai</th>
+                        <th>Editar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($this->categories as $category) : ?>
+                        <tr>
+                            <td><?php echo $category->getCategoryId(); ?></td>
+                            <td><?php echo $category->getCategoryName(); ?></td>
+                            <td><?php echo $category->getCategorySlug(); ?></td>
+                            <td><?php echo $category->getCategoryParent(); ?></td>
+                            <td>
+                                <a href="<?php echo $this->url('default_route', array('controller' => 'category', 'action' => 'list', 'id' => $category->getCategoryId())) ?>">Editar</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+        <?php else : ?>
+            <div class="form">
+                <?php $form = $this->form; ?>
+                <?php $form->setAttribute('onSubmit', 'event.preventDefault(); updateCategory()'); ?>
+                <?php $form->setAttribute('id', 'updateCategory'); ?>
+                <?php $form->prepare(); ?>
+                <?php echo $this->form()->openTag($form); ?>
+                <?php echo $this->formhidden($form->get('csrf')); ?>
+                <?php echo $this->formrow($form->get('category_id')); ?>
+                <?php echo $this->formrow($form->get('category_name')); ?>
+                <?php echo $this->formrow($form->get('category_parent')); ?>
+                <?php echo $this->formrow($form->get('submit')->setAttribute('value','Salvar Categoria')); ?>
+                <!--alert-->
+                <div class="row alert-row">
+                    <div class="col-md-12" id="alert-category"></div>
+                </div>
+                <!--alert-->
+                <?php echo $this->form()->closeTag(); ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
